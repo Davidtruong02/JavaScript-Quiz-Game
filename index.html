@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Quiz Game</title>
+</head>
+<body>
+    <section class="container">
+        <div>
+            <h1>High Scores</h1>
+            <ol id="highscore"></ol>
+        </div>
+  
+
+        <h3>Question 1 of 25:</h3>
+        <p id="qtext">What does CSS stand for?</p>
+        <form role="form" id="quizform" name="quizform" action="quiztest.asp?qtest=CSS" method="post">
+          <input type="hidden" name="starttime" value="12/13/2023 1:21:20 AM">
+          <input type="hidden" name="answers" value="0000000000000000000000000">
+          <input type="hidden" name="nextnumber">
+          <input type="hidden" name="prevnumber" value="1">
+          <div style="position:relative;width:100%;">
+            <div id="altcontainer" class="notranslate">
+              <label class="radiocontainer" id="label2"> Creative Style Sheets<input type="radio" name="quiz" id="2" onclick="clickRadio(this)" value="2"><span class="checkmark"></span></label><label class="radiocontainer" id="label4"> Computer Style Sheets<input type="radio" name="quiz" id="4" onclick="clickRadio(this)" value="4"><span class="checkmark"></span></label><label class="radiocontainer" id="label1"> Colorful Style Sheets<input type="radio" name="quiz" id="1" onclick="clickRadio(this)" value="1"><span class="checkmark"></span></label><label class="radiocontainer" id="label3"> Cascading Style Sheets<input type="radio" name="quiz" id="3" onclick="clickRadio(this)" value="3"><span class="checkmark"></span></label>
+            </div>
+          </div>
+          <div id="answerbuttoncontainer">
+            <button class="answerbutton w3-btn ws-green" type="submit" onclick="clickNextButton(1)">Next ❯</button>
+            <input type="text" readonly="" id="timespent" value="0:00">
+          </div>
+        </form>
+        
+          <div class="w3-panel w3-info linktotutdiv">
+            <h4>Study CSS in our <a href="/css/default.asp">CSS Tutorial</a></h4>
+          </div>
+        
+        </section>
+
+
+    
+</body>
+</html>
