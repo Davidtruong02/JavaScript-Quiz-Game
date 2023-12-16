@@ -57,13 +57,14 @@ var startSection = document.querySelector("#start");
 
 
 
+
 // initial Values
 var totalTimeLeft = 75;
 var penalty = 10;
 var questionIndex = 0;
 var quizInterval;
 var totalCorrect = 0;
-
+var gameStarted = false;
 
 function displayTimeLeft (){
   totalTimeLeft--;
@@ -85,12 +86,14 @@ function displayNextQuestion() {
       questionAnswers.appendChild(liEl);
       questionAnswers.setAttribute("data-correct-index", question.correctIndex);
     }
+  } else {
+    endGame();
   }
 }
 
 
 
-function checkAnswer () {
+function checkAnswer (answerIndex) {
   var currentQuestion = questions[questionIndex];
   if (currentQuestion.correctIndex === parseInt(answerIndex)){
       totalCorrect++;
@@ -112,16 +115,20 @@ function answerClickHandler(event) {
 
 
 function showScore () {
- alert("Quiz is OVER!")
+console.log("SCORE:", totalTimeLeft);
+console.log("Total Correct:", totalCorrect);
 }
 
-
+function endGame () {
+  showScore();
+  gameStarted =false;
+}
 
 
 function quizIntervalFunction () {
   if (totalTimeLeft > 0){
-  displayTimeLeft();
-  displayNextQuestion();
+    displayTimeLeft();
+    displayNextQuestion();
   } else {
       clearInterval(quizInterval);
       showScore();
@@ -132,6 +139,7 @@ function quizIntervalFunction () {
 
 
 function startQuiz() {
+  gameStarted = true;
   startSection.style.display = "none";
   quizSection.style.display = "flex";
 
@@ -149,4 +157,3 @@ function init() {
 
 init();
 
-startButton.addEventListener("click", startQuiz);
