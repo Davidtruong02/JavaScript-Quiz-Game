@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>JavaScript Quiz Game</title>
+</head>
+<body>
+    <!-- high score tracker-->
+    <header>
+        <h1>High Score
+
+        </h1>
+        <h2>Time Left: <span>75</span></h2>
+    </header>
+
+     <!-- container for startButton and text that tells how the game works-->
+    <div class="container">
+        <section id="start">
+            <span class="quiz-title">JavaScript Quiz!</span>
+            
+            <button id="buttonStartQuiz">Start Quiz</button>
+            <p>Please try to answer the following code-related questions within the time limit given.
+                Keep in mind incorrect answers will penalize your scoretime by ten seconds!
+            </p>
+        
+        </section>
+       
+    
+            <section id="quiz">
+                <div id="question-text"></div>
+                <ul id="question-answers"></ul>
+                <li></li>
+                </section> 
+    
+    </div>
+
+    <script src="/assets/quiz.js"></script>
+</body>
+</html>
+ 
