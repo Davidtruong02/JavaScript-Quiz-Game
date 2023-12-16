@@ -1,49 +1,49 @@
 
 var questions = [
-    {
-        Text: "How do you copy an Object in Javascript?",
-        answers: [
-            "Copy and Paster",
-            "Object.assign()",
-            "Using spread parameter"
-        ],
-        correctIndex: 1,
-    },
-    {  
-        Text: "Inside which HTML element do we put the JavaScript?",
-        answers: [
-            "<scripting>",
-            "<script>",
-            "<JavaScript>",
-            "<Java>"
-        ],
-        correctIndex: 1,
-    },
-    {
-        Text: "Where is the correct place to insert a JavaScript?",
-        answers: [
-            "Both the <head> section and the <body> section are correct",
-            "The <head> section",
-            "The <body> section"
-        ],
-        correctIndex: 1,
-    },
-    {
-        Text: "The external JavaScript file must contain the <script> tag.",
-        answers: [
-            "true",
-            "false"
-        ],
-        correctIndex: 1,
-    },  
-    {
-        Text: "The external JavaScript file must contain the <script> tag.",
-        answers: [
-            "true",
-            "false"
-        ],
-        correctIndex: 1,
-    }
+  {
+      Text: "How do you copy an Object in Javascript?",
+      answers: [
+          "Copy and Paster",
+          "Object.assign()",
+          "Using spread parameter"
+      ],
+      correctIndex: 0,
+  },
+  {  
+      Text: "Inside which HTML element do we put the JavaScript?",
+      answers: [
+          "<scripting>",
+          "<script>",
+          "<JavaScript>",
+          "<Java>"
+      ],
+      correctIndex: 1,
+  },
+  {
+      Text: "Where is the correct place to insert a JavaScript?",
+      answers: [
+          "Both the <head> section and the <body> section are correct",
+          "The <head> section",
+          "The <body> section"
+      ],
+      correctIndex: 2,
+  },
+  {
+      Text: "The external JavaScript file must contain the <script> tag.",
+      answers: [
+          "true",
+          "false"
+      ],
+      correctIndex: 3,
+  },  
+  {
+      Text: "The external JavaScript file must contain the <script> tag.",
+      answers: [
+          "true",
+          "false"
+      ],
+      correctIndex: 4,
+  }
 ];
 
 // selectors
@@ -57,9 +57,6 @@ var startSection = document.querySelector("#start");
 
 
 
-
-
-
 // initial Values
 var totalTimeLeft = 75;
 var penalty = 10;
@@ -69,78 +66,85 @@ var totalCorrect = 0;
 
 
 function displayTimeLeft (){
-    totalTimeLeft--;
-    timeLeft.textContent = totalTimeLeft;
+  totalTimeLeft--;
+  timeLeft.textContent = totalTimeLeft;
 }
+
+
 
 function displayNextQuestion() {
-
-    if( timeLeft && questionIndex < questions.length) {
-        questionAnswers.innerHTML = "";
-
-        var question = questions[questionIndex];
-          questionText.textContent = question.text;
-     
-         for (var i = 0; i < question.answers.length; i++) {
-            var answerChoice = question.answers[i];
-            var liEl = document.createElement("li");
-            liEl.textContent = answerChoice;
-            liEl.setAttribute("data-index",i);
-            questionAnswers.appendChild(liEl);
-            questionAnswers.setAttribute("data-correct-index", question.correctIndex);
-        
-        }   
+  if (timeLeft && questionIndex < questions.length) {
+    questionAnswers.innerHTML = "";
+    var question = questions[questionIndex];
+    questionText.textContent = question.Text;
+    for (var i = 0; i < question.answers.length; i++) {
+      var answerChoice = question.answers[i];
+      var liEl = document.createElement("li");
+      liEl.textContent = answerChoice;
+      liEl.setAttribute("data-index", i);
+      questionAnswers.appendChild(liEl);
+      questionAnswers.setAttribute("data-correct-index", question.correctIndex);
     }
-
+  }
 }
+
+
 
 function checkAnswer () {
-    var currentQuestion = questions[questionIndex];
-    if (currentQuestion.correctIndex === parseInt(answerIndex)){
-        totalCorrect++;
-    } else [
-        totalTimeLeft = penalty
-    ]
+  var currentQuestion = questions[questionIndex];
+  if (currentQuestion.correctIndex === parseInt(answerIndex)){
+      totalCorrect++;
+  } else {
+      totalTimeLeft -= penalty;
+  }
 }
 
+
+
 function answerClickHandler(event) {
-    if(event.target.matches("li")) {
-        var clickedAnswerIndex = event.target.dataset.index;
-        checkAnswer(clickedAnswerIndex);
-        questionIndex++;
-        displayNextQuestion();
-    }
+  if (event.target.matches("li")) {
+    var clickedAnswerIndex = event.target.dataset.index;
+    checkAnswer(clickedAnswerIndex);
+    questionIndex++;
+    displayNextQuestion();
+  }
 }
 
 
 function showScore () {
-   alert("Quiz is OVER!")
+ alert("Quiz is OVER!")
 }
+
+
 
 
 function quizIntervalFunction () {
-    if (totalTimeLeft > 0){
-    displayTimeLeft();
-    displayNextQuestion();
-    } else {
-        clearInterval(quizInterval);
-        showScore();
-    }
+  if (totalTimeLeft > 0){
+  displayTimeLeft();
+  displayNextQuestion();
+  } else {
+      clearInterval(quizInterval);
+      showScore();
+  }
 }
+
+
 
 
 function startQuiz() {
-    startSection.style.display = "none";
-    quizSection.style.display = "flex";
+  startSection.style.display = "none";
+  quizSection.style.display = "flex";
 
-   quizInterval = setInterval(quizIntervalFunction, 1000);
+ quizInterval = setInterval(quizIntervalFunction, 1000);
 }
+
+
 
 
 
 function init() {
-    startButton.addEventListener("click", startQuiz);
-    questionAnswers.addEventListener("click", answerClickHandler);
+  startButton.addEventListener("click", startQuiz);
+  questionAnswers.addEventListener("click", answerClickHandler);
 }
 
 init();
