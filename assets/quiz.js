@@ -1,61 +1,10 @@
-
-var questions = [
-  {
-      Text: "How do you copy an Object in Javascript?",
-      answers: [
-          "Copy and Paster",
-          "Object.assign()",
-          "Using spread parameter"
-      ],
-      correctIndex: 0,
-  },
-  {  
-      Text: "Inside which HTML element do we put the JavaScript?",
-      answers: [
-          "<scripting>",
-          "<script>",
-          "<JavaScript>",
-          "<Java>"
-      ],
-      correctIndex: 1,
-  },
-  {
-      Text: "Where is the correct place to insert a JavaScript?",
-      answers: [
-          "Both the <head> section and the <body> section are correct",
-          "The <head> section",
-          "The <body> section"
-      ],
-      correctIndex: 2,
-  },
-  {
-      Text: "The external JavaScript file must contain the <script> tag.",
-      answers: [
-          "true",
-          "false"
-      ],
-      correctIndex: 3,
-  },  
-  {
-      Text: "The external JavaScript file must contain the <script> tag.",
-      answers: [
-          "true",
-          "false"
-      ],
-      correctIndex: 4,
-  }
-];
-
 // selectors
 var startButton = document.querySelector("#buttonStartQuiz");
-// var submitButton = document.querySelector("#buttonSubmitAnswer");
 var timeLeft = document.querySelector("#timeLeft")
 var questionText = document.querySelector("#question-text")
 var questionAnswers = document.querySelector("#question-answers")
 var quizSection = document.querySelector("#quiz");
 var startSection = document.querySelector("#start");
-
-
 
 
 // initial Values
@@ -66,13 +15,81 @@ var quizInterval;
 var totalCorrect = 0;
 var gameStarted = false;
 
+
+// The fuction starts the quiz
+function startQuiz() {
+  gameStarted = true;
+  startSection.style.display = "none";
+  quizSection.style.display = "flex";
+
+ quizInterval = setInterval(quizIntervalFunction, 800);
+ displayNextQuestion();
+}
+
+
+var questions = [
+  {
+      Text: "Commonly used data types DO NOT include?",
+      answers: [
+          "strings",
+          "booleans",
+          "alerts",
+          "numbers",
+      ],
+      correctIndex: 1,
+  },
+  {  
+      Text: "The condition in an if / else statement is enclosed with ____?",
+      answers: [
+          "quotes",
+          "curly brackets",
+          "parenthesis",
+          "square brackets"
+      ],
+      correctIndex: 2,
+  },
+  {
+      Text: "Arrays in JavaScript can be used to store _____?",
+      answers: [
+          "numbers and strings",
+          "other arrays",
+          "booleans",
+          "all of the above"
+      ],
+      correctIndex: 3,
+  },
+  {
+      Text: "String values must be enclosed withing ____ when being assigned to variables.",
+      answers: [
+          "Commas",
+          "curly brackets",
+          "quotes",
+          "paraenthesis"
+      ],
+      correctIndex: 1,
+  },  
+  {
+      Text: "A very useful tool used during development and debugging for printing content to the debugger is?",
+      answers: [
+          "JavaScript",
+          "terminal/bash",
+          "for loops",
+          "console.log"
+      ],
+      correctIndex: 2,
+  },
+];
+
+
+
+
 function displayTimeLeft (){
   totalTimeLeft--;
   timeLeft.textContent = totalTimeLeft;
 }
 
 
-
+// This piece of code helps display the next question
 function displayNextQuestion() {
   if (timeLeft && questionIndex < questions.length) {
     questionAnswers.innerHTML = "";
@@ -87,18 +104,20 @@ function displayNextQuestion() {
       questionAnswers.setAttribute("data-correct-index", question.correctIndex);
     }
   } else {
-    endGame();
+    endQuiz();
   }
 }
 
 
-
-function checkAnswer (answerIndex) {
+function checkAnswer(answerIndex) {
   var currentQuestion = questions[questionIndex];
   if (currentQuestion.correctIndex === parseInt(answerIndex)){
       totalCorrect++;
   } else {
       totalTimeLeft -= penalty;
+      if (totalTimeLeft < 0) {
+        totalTimeLeft = 0;
+      }
   }
 }
 
@@ -119,16 +138,11 @@ console.log("SCORE:", totalTimeLeft);
 console.log("Total Correct:", totalCorrect);
 }
 
-function endGame () {
-  showScore();
-  gameStarted =false;
-}
 
 
 function quizIntervalFunction () {
-  if (totalTimeLeft > 0){
+  if (totalTimeLeft > 0 && questionIndex < questions.length){
     displayTimeLeft();
-    displayNextQuestion();
   } else {
       clearInterval(quizInterval);
       showScore();
@@ -137,16 +151,17 @@ function quizIntervalFunction () {
 
 
 
-
-function startQuiz() {
-  gameStarted = true;
-  startSection.style.display = "none";
-  quizSection.style.display = "flex";
-
- quizInterval = setInterval(quizIntervalFunction, 1000);
-}
-
-
+function endQuiz () {
+  showScore();
+  gameStarted = false;
+  var initials = prompt("Please enter your initials to save your score!:");
+  var highScore = {
+    initials: initials,
+    score: totalTimeLeft,
+    
+    }
+    console.log("High Score:", highScore);
+  }
 
 
 
@@ -156,4 +171,5 @@ function init() {
 }
 
 init();
+
 

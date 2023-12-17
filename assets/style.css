@@ -76,12 +76,14 @@ section {
 
 #question-answers li {
   margin: 10px 0;
-  cursor: pointer;
   border: 3px solid black;
   padding: 10px;
   border-radius: 10px;
 }
 
+#question-answers li:hover {
+  cursor: pointer;
+}
 
 button {
   color: white;
@@ -91,3 +93,5 @@ button {
   padding: 5px;
   cursor: pointer;
 }
+
+
