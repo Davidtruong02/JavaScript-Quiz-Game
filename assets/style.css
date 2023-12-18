@@ -46,6 +46,7 @@ p {
   flex-direction: column;
 }
 
+/* this section is for the questions */
 section {
   width: 800px;
   height: 500px;
@@ -56,6 +57,7 @@ section {
   text-align: center;
 }
 
+/* quiz section */
 #quiz {
   display: none;
   flex-direction: column;
