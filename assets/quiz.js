@@ -82,6 +82,10 @@ var questions = [
   },
 ];
 
+function endGame () {
+  showScore();
+  gameStarted =false;
+}
 
 
 
@@ -105,7 +109,7 @@ function displayNextQuestion() {
       questionAnswers.appendChild(liEl);
     }
     } else {
-    endQuiz();
+    endGame();
   }
 }
 
@@ -176,5 +180,4 @@ function init() {
 }
 
 init();
-
 
