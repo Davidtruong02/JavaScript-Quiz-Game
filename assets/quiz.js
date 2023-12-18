@@ -5,6 +5,9 @@ var questionText = document.querySelector("#question-text")
 var questionAnswers = document.querySelector("#question-answers")
 var quizSection = document.querySelector("#quiz");
 var startSection = document.querySelector("#start");
+var endSection = document.querySelector("#end");
+var finalScore = document.querySelector("#finalScore");
+var initialsForm = document.querySelector("#initialsForm");
 
 
 // initial Values
@@ -21,9 +24,8 @@ function startQuiz() {
   gameStarted = true;
   startSection.style.display = "none";
   quizSection.style.display = "flex";
-
- quizInterval = setInterval(quizIntervalFunction, 800);
- displayNextQuestion();
+  quizInterval = setInterval(quizIntervalFunction, 800);
+  displayNextQuestion();
 }
 
 
@@ -101,9 +103,8 @@ function displayNextQuestion() {
       liEl.textContent = answerChoice;
       liEl.setAttribute("data-index", i);
       questionAnswers.appendChild(liEl);
-      questionAnswers.setAttribute("data-correct-index", question.correctIndex);
     }
-  } else {
+    } else {
     endQuiz();
   }
 }
@@ -111,13 +112,21 @@ function displayNextQuestion() {
 
 function checkAnswer(answerIndex) {
   var currentQuestion = questions[questionIndex];
-  if (currentQuestion.correctIndex === parseInt(answerIndex)){
-      totalCorrect++;
+  console.log("currentQuestion:", currentQuestion);
+  console.log("answerIndex:", answerIndex);
+  console.log("currentQuestion.correctIndex:", currentQuestion.correctIndex);
+
+  if(isNaN(answerIndex) || answerIndex < 0 || answerIndex >= currentQuestion.answers.length) {
+    console.log("Invalid answer index.");
+    return;
+  }
+  if (currentQuestion.correctIndex === parseInt(answerIndex)) {
+    totalCorrect++;
   } else {
-      totalTimeLeft -= penalty;
-      if (totalTimeLeft < 0) {
-        totalTimeLeft = 0;
-      }
+    totalTimeLeft -= penalty;
+    if (totalTimeLeft < 0) {
+      totalTimeLeft = 0;
+    }
   }
 }
 
@@ -129,6 +138,12 @@ function answerClickHandler(event) {
     checkAnswer(clickedAnswerIndex);
     questionIndex++;
     displayNextQuestion();
+
+  questionAnswers.removeEventListener("click", answerClickHandler);
+  
+  displayNextQuestion();
+
+  questionAnswers.addEventListener("click", answerClickHandler);
   }
 }
 
@@ -136,6 +151,9 @@ function answerClickHandler(event) {
 function showScore () {
 console.log("SCORE:", totalTimeLeft);
 console.log("Total Correct:", totalCorrect);
+quizSection.style.display = "none";
+endSection.style.display = "block";
+finalScore.textContent = totalTimeLeft;
 }
 
 
@@ -149,19 +167,6 @@ function quizIntervalFunction () {
   }
 }
 
-
-
-function endQuiz () {
-  showScore();
-  gameStarted = false;
-  var initials = prompt("Please enter your initials to save your score!:");
-  var highScore = {
-    initials: initials,
-    score: totalTimeLeft,
-    
-    }
-    console.log("High Score:", highScore);
-  }
 
 
 
