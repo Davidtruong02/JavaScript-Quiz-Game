@@ -116,9 +116,9 @@ function displayNextQuestion() {
 
 function checkAnswer(answerIndex) {
   var currentQuestion = questions[questionIndex];
-  console.log("currentQuestion:", currentQuestion);
-  console.log("answerIndex:", answerIndex);
-  console.log("currentQuestion.correctIndex:", currentQuestion.correctIndex);
+ // console.log("currentQuestion:", currentQuestion);
+ // console.log("answerIndex:", answerIndex);
+ // console.log("currentQuestion.correctIndex:", currentQuestion.correctIndex);
 
   if(isNaN(answerIndex) || answerIndex < 0 || answerIndex >= currentQuestion.answers.length) {
     console.log("Invalid answer index.");
@@ -126,11 +126,13 @@ function checkAnswer(answerIndex) {
   }
   if (currentQuestion.correctIndex === parseInt(answerIndex)) {
     totalCorrect++;
+    console.log("Correct answer!");
   } else {
     totalTimeLeft -= penalty;
     if (totalTimeLeft < 0) {
       totalTimeLeft = 0;
     }
+    console.log("Incorrect answer!");
   }
 }
 
@@ -143,7 +145,7 @@ function answerClickHandler(event) {
     questionIndex++;
     displayNextQuestion();
 
-  questionAnswers.removeEventListener("click", answerClickHandler);
+
   
   displayNextQuestion();
 
