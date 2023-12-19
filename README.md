@@ -40,7 +40,7 @@ The following animation demonstrates the application functionality:
 
 ## Deployed Website link
 
-
+https://davidtruong02.github.io/JavaScript-Quiz-Game/
 
 ## License
 
